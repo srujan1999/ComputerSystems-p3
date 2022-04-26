@@ -11,7 +11,7 @@ import mimetypes
 import sys
 import subprocess
 import socket
-import multiprocessing
+import threading
 class HTTPServer:
        def __init__(self,ip,port):
            sock=socket.socket()
@@ -84,13 +84,13 @@ def main():
     # do not change the host and port
     # you can change  the HTTPServer object if you are not following OOP
     # HTTPServer('127.0.0.1', 9999)
-    p2 = multiprocessing.Process(target=HTTPServer,args=('127.0.0.1', 9999))
+    p2 = threading.Thread()(target=HTTPServer,args=('127.0.0.1', 9999))
     p2.start()
     p2.join()
 
 if __name__ == "__main__":
     main()
-    p1 = multiprocessing.Process(target=main())
+    p1 = threading.Thread()(target=main())
     p1.start()
     p1.join()
 
